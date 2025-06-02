@@ -1,25 +1,53 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/userguide3/general/urls.html
-	 */
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
+class Auth extends CI_Controller 
+{
+    public function __construct() 
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('User_model');
+    }
+    
+    public function login()
+    {
+        if($this->session->userdata('logged_in')) {
+            redirect('call');
+        }
+        
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        
+        if($this->form_validation->run()) {
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
+            
+            $user = $this->User_model->login($username, $password);
+            
+            if($user) {
+                $user_data = [
+                    'user_id' => $user->user_id,
+                    'username' => $user->username,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                    'logged_in' => true
+                ];
+                
+                $this->session->set_userdata($user_data);
+                redirect('call');
+            } else {
+                $this->session->set_flashdata('error', 'Invalid username or password');
+                redirect('auth/login');
+            }
+        }
+        
+        $this->load->view('auth/login');
+    }
+    
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('auth/login');
+    }
 }
