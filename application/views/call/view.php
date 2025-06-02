@@ -1,65 +1,15 @@
-<div class="container">
-    <h2>Email Blast System</h2>
-    
-    <?php if($this->session->flashdata('success')): ?>
-        <div class="alert alert-success">
-            <?php echo $this->session->flashdata('success'); ?>
-        </div>
-    <?php endif; ?>
-    
-    <?php if($this->session->flashdata('error')): ?>
-        <div class="alert alert-danger">
-            <?php echo $this->session->flashdata('error'); ?>
-        </div>
-    <?php endif; ?>
-    
-    <?php echo form_open('call/send_blast'); ?>
-    
-    <div class="form-group">
-        <label>HRD Email (Sender)</label>
-        <input type="text" name="hrd_emails" class="form-control" required>
-    </div>
-    
-    <div class="form-group">
-        <label>Subject</label>
-        <input type="text" name="subject" class="form-control" required>
-    </div>
-    
-    <div class="form-group">
-        <label>Content</label>
-        <textarea name="content" class="form-control" rows="10" required></textarea>
-        <small class="text-muted">
-            Gunakan placeholder: {nama} untuk nama applicant, {email} untuk email applicant
-        </small>
-    </div>
-    
-    <div class="form-group">
-        <label>Recipients (<?php echo count($applicants); ?> applicants)</label>
-        <ul class="list-group">
-            <?php foreach($applicants as $app): ?>
-                <li class="list-group-item">
-                    <?php echo $app->nama; ?> &lt;<?php echo $app->email; ?>&gt;
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Send Email Blast</button>
-    
-    <?php echo form_close(); ?>
-    
-    <hr>
-    
-    <h3>Email Templates</h3>
-    <div class="list-group">
-        <?php foreach($templates as $template): ?>
-            <div class="list-group-item">
-                <h4><?php echo $template->subject; ?></h4>
-                <p><?php echo character_limiter(strip_tags($template->content), 100); ?></p>
-                <small class="text-muted">
-                    Created: <?php echo date('d M Y', strtotime($template->created_date)); ?>
-                </small>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
+  </body>
+</html>
