@@ -21,14 +21,11 @@ class Users extends CI_Controller
     public function create()
     {
         $this->form_validation->set_rules('name', 'Name', 'required');
-
         $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
-
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
-
         $this->form_validation->set_rules('address', 'Address', 'required');
-
-        if ($this->form_validation->run() ===  FALSE) {
+        
+        if ($this->form_validation->run() === FALSE) {
             $this->load->view('templates/header');
             $this->load->view('users/create');
             $this->load->view('templates/footer');

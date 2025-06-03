@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label for="username">username</label>
-        <input type="text" name="username" id="username" value="<?php echo set_value('username'); ?>">
+        <input type="text" class="form-control" name="username" id="username" value="<?php echo set_value('username'); ?>">
         <?php echo form_error('username', '<div class="text-danger">', '</div>'); ?>
     </div>
 
