@@ -80,9 +80,9 @@
                             <td><?= $user['email']; ?></td>
                             <td><?= $user['address']; ?></td>
                             <td>
-                                <a href="<?php echo site_url('users/edit/'.$user['user_id']); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="<?php echo site_url('users/edit/'.$user['user_id']); ?>" class="btn btn-warning btn-sm mb-2">Edit</a>
                                 
-                                <a href="<?php echo site_url('users/delete/' .$user['user_id']);  ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?') " >Delete</a>
+                                <a href="<?php echo site_url('users/delete/' .$user['user_id']);  ?>" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure?') " >Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
