@@ -51,8 +51,9 @@
     <div class="row">
         <div class="col">
             <?php if ($this->session->flashdata('success')): ?>
-                <div class="alert alert-success">
-                    <?php echo $this->session->flashdata('success'); ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><?php echo $this->session->flashdata('success'); ?></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
         </div>
@@ -63,7 +64,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email</th>
@@ -72,9 +73,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($users as $user): ?>
-                        <tr>
-                            <td><?= $user['user_id']; ?></td>
+                    <?php 
+                    // Initialize counter
+                    $counter = 1;
+                    foreach($users as $user): ?>
+                        <tr> 
+                            <td><?= $counter++; ?></td>
                             <td><?= $user['name']; ?></td>
                             <td><?= $user['username']; ?></td>
                             <td><?= $user['email']; ?></td>
