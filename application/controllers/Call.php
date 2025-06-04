@@ -23,9 +23,24 @@ class Call extends CI_Controller
         $this->form_validation->set_rules('hrd_emails', 'HRD Emails', 'required');
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('message', 'Message', 'required');
-        
+
+        // Add custom validation for checkboxes
+        $selected_users = $this->input->post('users') ?: [];
+
+        if (empty($selected_users)) {
+            $this->form_validation->set_rules('users[]', 'Users', 'required', [
+                'required' => 'Please select at least one user.'
+            ]);
+        }
+
         if ($this->form_validation->run() === FALSE) {
-            $this->index();
+            // Pass the validation errors to the view
+            $data['users'] = $this->Call_model->get_all_users();
+            $data['validation_errors'] = validation_errors();
+            $this->load->view('templates/header');
+            $this->load->view('call/view', $data);
+            $this->load->view('templates/footer');
+            
         } else {
             // Get selected users
             $selected_users = $this->input->post('users') ?: [];
