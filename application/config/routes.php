@@ -60,3 +60,4 @@ $route['users/edit/(:num)'] = 'users/edit/$1';
 $route['users/delete/(:num)'] = 'users/delete/$1';
 
 $route['call'] = 'call/index';
+$route['call/send_blast'] = 'call/send_blast';

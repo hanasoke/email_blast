@@ -24,80 +24,64 @@
         </div>
     </div>
 
+    <?php if($this->session->flashdata('success')) : ?>
     <div class="row">
         <div class="col">
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Nakano Miku</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Nakano Itsuki</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Kakashi</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item"> 
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Anna Mortgage</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Saitama</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Tobirama</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Hashirama</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Sasuke</label>
-                                    </div>
-                                </li>
-                            </ul>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?php echo $this->session->flashdata('success'); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="row">
+        <div class="col">
+        <form method="post" action="<?php echo site_url('call/send_blast'); ?>">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <ul class="list-group list-group-flush">
+                                    <?php foreach($users as $user): ?>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" 
+                                                   name="users[]" 
+                                                   id="user_<?php echo $user['user_id']; ?>" 
+                                                   value="<?php echo $user['name']; ?>">
+                                            <label class="form-check-label" for="user_<?php echo $user['user_id']; ?>">
+                                                <?php echo $user['name']; ?>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Sent my message</h5>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">HRD Emails</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Sent my message</h5>
+                                <div class="mb-3">
+                                    <label for="hrd_emails" class="form-label">HRD Emails</label>
+                                    <input type="text" class="form-control" name="hrd_emails" id="hrd_emails" 
+                                           placeholder="email1@example.com, email2@example.com" required>
+                                    <div class="form-text">Separate multiple emails with commas</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" name="title" id="title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Content</label>
+                                    <textarea class="form-control" name="message" id="message" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success float-end">Submit</button>
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                            <button class="btn btn-success float-end">Submit</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </section>
