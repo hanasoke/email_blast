@@ -73,9 +73,14 @@
                                 <h5 class="card-title">Sent my message</h5>
                                 <div class="mb-3">
                                     <label for="hrd_emails" class="form-label">HRD Emails</label>
-                                    <input type="text" class="form-control" name="hrd_emails" id="hrd_emails" 
-                                           placeholder="email1@example.com, email2@example.com" required>
-                                    <div class="form-text">Separate multiple emails with commas</div>
+                                    <input type="text" class="form-control <?php echo form_error('hrd_emails') ? 'is-invalid' : ''; ?>" name="hrd_emails" id="hrd_emails" 
+                                           placeholder="email1@example.com, email2@example.com" value="<?php echo set_value('hrd_emails'); ?>" required>
+                                    <?php if(form_error('hrd_emails')): ?>  
+                                        <div class="invalid-feedback">
+                                            <?php echo form_error('hrd_emails'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                <div class="form-text">Separate multiple emails with commas</div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>

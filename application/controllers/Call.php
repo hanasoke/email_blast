@@ -8,6 +8,59 @@ class Call extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation', 'email');
         $this->load->model('Call_model');
+
+        // Add custom validation message
+        $this->form_validation->set_message('valid_emails', 'The {field} field contains invalid email addresses.');
+        $this->form_validation->set_message('validate_gmail_yahoo', 'Only Gmail and Yahoo email addresses are allowed.');
+    }
+
+    // Custom validation method for multiple emails with Gmail / Yahoo restriction
+    public function valid_emails($str) 
+    {
+        // Split emails by comma
+        $emails = explode(',', $str);
+        $invalid_emails = [];
+        $empty_entries = false;
+
+        foreach($emails as $email) {
+            $email = trim($email);
+            
+            // Check for empty entries after comma
+            if (empty($email)) {
+                $empty_entries = true;
+                continue;
+            }
+
+            // Validate each email 
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $invalid_emails[] = $email;
+                continue;
+            }
+
+            // Extract domain
+            $domain = explode('@', $email);
+            $domain = strtolower(end($domain));
+
+            // Check for Gmail or Yahoo domains
+            $allowed_domains = ['gmail.com', 'yahoo.com'];
+            if (!in_array($domain, $allowed_domains)) {
+                $invalid_emails[] = $email . " (only Gmail/Yahoo allowed)"; // Fixed this line
+            }
+        }
+
+        // Check for empty entries error
+        if ($empty_entries) {
+            $this->form_validation->set_message('valid_emails', 'Please remove empty entries between commas.');
+            return false;
+        }
+
+        // Check for invalid emails
+        if (!empty($invalid_emails)) {
+            $this->form_validation->set_message('valid_emails', 'Invalid emails: ' . implode(', ', $invalid_emails));
+            return false;
+        }
+
+        return true;
     }
 
     public function index()
@@ -20,7 +73,8 @@ class Call extends CI_Controller
     
     public function send_blast()
     {
-        $this->form_validation->set_rules('hrd_emails', 'HRD Emails', 'required');
+        // Update validation rules
+        $this->form_validation->set_rules('hrd_emails', 'HRD Emails', 'required|callback_valid_emails');
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('message', 'Message', 'required');
 
@@ -47,32 +101,49 @@ class Call extends CI_Controller
             
             // Get emails for selected users
             $user_emails = $this->Call_model->get_user_emails_by_names($selected_users);
-            $user_email_addresses = array_column($user_emails, 'email');
+
+            // Initialize empty array if no emails found
+            $user_email_addresses = [];
+            if (!empty($user_emails)) {
+                $user_email_addresses = array_column($user_emails, 'email');
+            }
             
             // Combine HRD emails and user emails
-            $all_recipients = array_merge(
-                explode(',', $this->input->post('hrd_emails')),
-                $user_email_addresses
-            );
+            $all_recipients = [];
+
+            if (!empty($this->input->post('hrd_emails'))) {
+                $all_recipients = array_merge(
+                    array_filter(explode(',', $this->input->post('hrd_emails'))),
+                    $user_email_addresses
+                );
+            } else {
+                $all_recipients = $user_email_addresses;
+            }
             
-            // Send emails
-            $this->send_emails(
-                $all_recipients,
-                $this->input->post('title'),
-                $this->input->post('message')
-            );
+            // Only proceed if we have recipients
+            if (!empty($all_recipients)) {
+                // Send emails
+                $this->send_emails(
+                    $all_recipients,
+                    $this->input->post('title'),
+                    $this->input->post('message')
+                );
+                
+                // Save to database
+                $data = [
+                    'hrd_emails' => $this->input->post('hrd_emails'),
+                    'user_emails' => !empty($user_email_addresses) ? implode(',', $user_email_addresses) : '',
+                    'title' => $this->input->post('title'),
+                    'message' => $this->input->post('message')
+                ];
+                
+                $this->Call_model->save_email_blast($data);
+                
+                $this->session->set_flashdata('success', 'Email blast sent successfully!');
+            } else {
+                $this->session->set_flashdata('error', 'No valid recipients found.');
+            }
             
-            // Save to database
-            $data = [
-                'hrd_emails' => $this->input->post('hrd_emails'),
-                'user_emails' => implode(',', $user_email_addresses),
-                'title' => $this->input->post('title'),
-                'message' => $this->input->post('message')
-            ];
-            
-            $this->Call_model->save_email_blast($data);
-            
-            $this->session->set_flashdata('success', 'Email blast sent successfully!');
             redirect('call');
         }
     }
