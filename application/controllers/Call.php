@@ -154,8 +154,8 @@ class Call extends CI_Controller
             'protocol' => 'smtp',
             'smtp_host' => 'mail.ptdika.com',
             'smtp_port' => 465,
-            'smtp_user' => 'support@ptdika.com',
-            'smtp_pass' => 'D4p3nD1k4&&1379',
+            'smtp_user' => 'notification@ptdika.com',
+            'smtp_pass' => 'D1k4@Notif123&*',
             'smtp_crypto' => 'ssl',
             'mailtype' => 'html',
             'charset' => 'utf-8',
@@ -167,7 +167,7 @@ class Call extends CI_Controller
         
         foreach ($recipients as $recipient) {
             $this->email->clear();
-            $this->email->from('support@ptdika.com', 'PT DIKA Support');
+            $this->email->from('notification@ptdika.com', 'PT DIKA Support');
             $this->email->to(trim($recipient));
             $this->email->subject($subject);
             $this->email->message($message);
@@ -185,10 +185,10 @@ class Call extends CI_Controller
         
         $config = array(
             'protocol' => 'smtp',
-            'smtp_host' => 'mail.ptdika.com',
+            'smtp_host' => 'notification@ptdika.com',
             'smtp_port' => 465,
-            'smtp_user' => 'support@ptdika.com',
-            'smtp_pass' => 'password_anda',
+            'smtp_user' => 'notification@ptdika.com',
+            'smtp_pass' => 'D1k4@Notif123&',
             'smtp_crypto' => 'ssl',
             'mailtype' => 'html',
             'charset' => 'utf-8',
@@ -197,8 +197,8 @@ class Call extends CI_Controller
         
         $this->email->initialize($config);
         
-        $this->email->from('support@ptdika.com', 'PT DIKA');
-        $this->email->to('email_tujuan@example.com');
+        $this->email->from('notification@ptdika.com', 'PT DIKA');
+        $this->email->to('hanasoke@gmail.com');
         $this->email->subject('Testing SMTP Config');
         $this->email->message('<h1>Ini adalah test email</h1><p>Konfigurasi SMTP berhasil!</p>');
         
