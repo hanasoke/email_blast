@@ -178,35 +178,4 @@ class Call extends CI_Controller
             }
         }
     }
-
-    public function test_email()
-    {
-        $this->load->library('email');
-        
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'notification@ptdika.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'notification@ptdika.com',
-            'smtp_pass' => 'D1k4@Notif123&',
-            'smtp_crypto' => 'ssl',
-            'mailtype' => 'html',
-            'charset' => 'utf-8',
-            'newline' => "\r\n"
-        );
-        
-        $this->email->initialize($config);
-        
-        $this->email->from('notification@ptdika.com', 'PT DIKA');
-        $this->email->to('hanasoke@gmail.com');
-        $this->email->subject('Testing SMTP Config');
-        $this->email->message('<h1>Ini adalah test email</h1><p>Konfigurasi SMTP berhasil!</p>');
-        
-        if ($this->email->send()) {
-            echo 'Email berhasil dikirim';
-        } else {
-            echo 'Gagal mengirim email';
-            echo $this->email->print_debugger();
-        }
-    }
 }
