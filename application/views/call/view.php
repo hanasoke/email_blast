@@ -20,11 +20,11 @@
 <!-- Add this to your existing view file -->
 <div class="container mt-4">
     <?php if($this->session->flashdata('success')): ?>
-    <div class="alert alert-success"><?php echo $this->session->flashdata('success'); ?></div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert"><?php echo $this->session->flashdata('success'); ?><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
     <?php endif; ?>
     
     <?php if($this->session->flashdata('error')): ?>
-    <div class="alert alert-danger"><?php echo $this->session->flashdata('error'); ?></div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert"><?php echo $this->session->flashdata('error'); ?><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
     <?php endif; ?>
     
     <form method="post" action="<?php echo site_url('call/send_blast'); ?>">
