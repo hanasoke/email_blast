@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Jun 2025 pada 04.05
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.2.33
+-- Generation Time: Jun 13, 2025 at 10:56 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `email_blasts`
+-- Table structure for table `email_blasts`
 --
 
 CREATE TABLE `email_blasts` (
@@ -36,7 +36,7 @@ CREATE TABLE `email_blasts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `email_blasts`
+-- Dumping data for table `email_blasts`
 --
 
 INSERT INTO `email_blasts` (`id`, `hrd_emails`, `title`, `message`, `user_emails`) VALUES
@@ -47,12 +47,13 @@ INSERT INTO `email_blasts` (`id`, `hrd_emails`, `title`, `message`, `user_emails
 (7, 'hanasoke@outlook.com', 'saWSAQD', 'wDSQAWDSQA', 'saitama@gmail.com,clorismenbekasi7@gmail.com'),
 (8, 'hanasoke@outlook.com', 'wqdsqwDSA', 'wqdSqwDS', 'saitama@gmail.com,clorismenbekasi7@gmail.com'),
 (9, 'hanasoke@outlook.com', 'dwswsqa', 'wdsaqwdq', 'clorismenbekasi7@gmail.com'),
-(10, 'hanasoke@gmail.com, hanasbayupratama@gmail.com', 'wsewe', 's2ws2ws3e', 'saitama@gmail.com');
+(10, 'hanasoke@gmail.com, hanasbayupratama@gmail.com', 'wsewe', 's2ws2ws3e', 'saitama@gmail.com'),
+(11, 'clorismenbekasi7@gmail.com', 'Jalan Lurus', 'Jalan Lurus dan Tak Berkelok', 'hanasoke@yahoo.com');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -65,44 +66,45 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `name`, `username`, `email`, `address`, `created_at`) VALUES
 (1, 'saitama', 'saitama', 'saitama@gmail.com', 'Komp Parpostel No.56', '2025-06-05 01:36:22'),
-(2, ' Tukang Skin Care', 'skin care ku', 'clorismenbekasi7@gmail.com', 'Nurudin Zenski', '2025-06-05 01:37:25');
+(2, ' Tukang Skin Care', 'skin care ku', 'clorismenbekasi7@gmail.com', 'Nurudin Zenski', '2025-06-05 01:37:25'),
+(3, ' Hanas', 'hanasbp', 'hanasoke@yahoo.com', 'Jl Sutarman No.56', '2025-06-12 02:21:46');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `email_blasts`
+-- Indexes for table `email_blasts`
 --
 ALTER TABLE `email_blasts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `email_blasts`
+-- AUTO_INCREMENT for table `email_blasts`
 --
 ALTER TABLE `email_blasts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
